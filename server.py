@@ -42,4 +42,4 @@ class UploadShapefile(Resource):
 api.add_resource(UploadShapefile, '/upload')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
