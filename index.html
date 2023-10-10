@@ -22,10 +22,10 @@
                 <!-- Collapsible content -->
                 <div class="collapse" id="dataManageTools">
                     <!-- Button to open the file upload modal -->
-                    <button type="button" id="open-upload-modal" class="btn btn-primary mb-2" data-bs-toggle="modal" data-bs-target="#uploadModal">
+                    <button type="button" id="openUploadModal" class="btn btn-primary mb-2" data-bs-toggle="modal" data-bs-target="#uploadModal">
                         <i class="bi bi-upload"></i> Upload Shapefile
                     </button>
-                    <button type="button" id="open-remove-modal" class="btn btn-danger mb-2" data-bs-toggle="modal" data-bs-target="#removeLayerModal">
+                    <button type="button" id="openRemoveModal" class="btn btn-danger mb-2" data-bs-toggle="modal" data-bs-target="#removeLayerModal">
                         <i class="bi bi-trash"></i> Remove Layer
                     </button>
                 </div>
@@ -168,6 +168,12 @@
 
     <!-- Collapsible Basemap Gallery -->
     <div class="collapse" id="basemapGallery"></div>
+
+    <!-- Collapsible Layer List -->
+    <div class="collapse" id="layerList"></div>
+
+    <!-- Collapsible Legend -->
+    <div class="collapse" id="mapLegend"></div>
     
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -184,6 +190,7 @@
     <script src="https://js.arcgis.com/4.27/init.js"></script>
     <script src="static/src/esriRequires.js"></script>
     <script src="static/src/map.js"></script>
+    <script src="static/src/widgetContainer.js"></script>
     <script src="static/src/mapControllers.js"></script>
     <script src="static/src/loadLayer.js"></script>
     <script src="static/src/uploadShapefile.js"></script>

@@ -1,4 +1,4 @@
-$("#open-upload-modal").click((e) => {
+$("#openUploadModal").click((e) => {
 
     // inject form elements
     $("#poly-div").html(

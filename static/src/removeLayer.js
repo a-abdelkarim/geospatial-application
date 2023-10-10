@@ -1,4 +1,4 @@
-$("#open-remove-modal").click((e) => {
+$("#openRemoveModal").click((e) => {
 
     const layerSelect = document.getElementById('layerSelect');
     layerSelect.innerHTML = "";
