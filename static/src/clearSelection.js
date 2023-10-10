@@ -14,6 +14,9 @@ $("#clearSelection").click((e) => {
     if (map.layers.every((layer) => layer instanceof customGraphicsLayer != true))
         document.getElementById('clearSelection').style.display = 'none';
 
+
     if (doughnutChart) 
         doughnutChart.destroy();
+    
+    $("#totalSelectedKM").text("");
 });
