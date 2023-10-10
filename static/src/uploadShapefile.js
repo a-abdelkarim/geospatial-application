@@ -17,7 +17,6 @@ $("#open-upload-modal").click((e) => {
         var fileInput = $("#shapefileInput")[0];
         var file = fileInput.files[0];
         formData.append("shapefile", file);
-        console.log($("#shapefile"))
 
         $.ajax({
             url: "/upload",

@@ -12,7 +12,7 @@ $("#open-remove-modal").click((e) => {
 
     const removeLayerButton = document.getElementById('removeLayer');
 
-    removeLayerButton.addEventListener('click', () => {
+    removeLayerButton.addEventListener('click', (e) => {
         const selectedLayerId = layerSelect.value;
 
         // Find the selected layer by its ID
@@ -20,10 +20,8 @@ $("#open-remove-modal").click((e) => {
 
         if (layerToRemove) {
             map.remove(layerToRemove);
+            $("#layerSelect option[value='" + selectedLayerId + "']").remove();
         }
-
-        // Close the modal
-        $('#removeLayerModal').modal('hide');
     });
 
 

@@ -36,13 +36,11 @@ function loadLayer(geojsonObject)
         geoJsonLayer.queryFeatures(query)
             .then(function (result) {
                 result.features.forEach(function (feature) {
-                    console.log(feature)
                     // Calculate the area of each selected feature in square meters
                     const featureAreaInSquareMeters = customGeometryEngine.planarArea(feature.geometry);
 
                     // Add the area of this feature to the total
                     totalLayerAreaInKm += featureAreaInSquareMeters;
-                    console.log(totalLayerAreaInKm)
                 });
             })
             .catch(function (error) {

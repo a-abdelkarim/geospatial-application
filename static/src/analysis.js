@@ -24,7 +24,7 @@ function getSelectedFeatures(selectedLayer)
 
             layerToQuery.queryFeatures(query)
                 .then(function (result) {
-                    console.log("Features that intersect with the drawn geometry:", result.features);
+                    ("Features that intersect with the drawn geometry:", result.features);
 
                     let totalAreaInSquareMeters = 0;
 
