@@ -16,8 +16,8 @@ async function initMap()
         view = new MapView({
           container: "viewDiv",
           map: map,
-          center: [-118.805, 34.027],
-          zoom: 12
+          center: [30, 30],
+          zoom: 2
         });
       
       });
