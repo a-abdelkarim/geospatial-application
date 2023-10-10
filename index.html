@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geospatial Website</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="static/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://js.arcgis.com/4.27/esri/themes/light/main.css">
+</head>
+<body>
+
+    <div class="container-fluid">
+        <div class="row stack-columns">
+            <div class="col-md-3 col-sm-12 side-menu" id="sidebar">
+                <h5><i class="bi bi-tools"></i> Toolbox</h5>
+                <!-- Button to toggle the sidebar collapse -->
+                <button type="button" class="btn btn-secondary mt-2" data-bs-toggle="collapse" data-bs-target="#dataManageTools">
+                Data Management Tools <i class="bi bi-chevron-down"></i>
+                </button>
+                <!-- Collapsible content -->
+                <div class="collapse" id="dataManageTools">
+                    <!-- Button to open the file upload modal -->
+                    <button type="button" id="open-upload-modal" class="btn btn-primary mb-2" data-bs-toggle="modal" data-bs-target="#uploadModal">
+                        <i class="bi bi-upload"></i> Upload Shapefile
+                    </button>
+                    <button type="button" id="open-remove-modal" class="btn btn-danger mb-2" data-bs-toggle="modal" data-bs-target="#removeLayerModal">
+                        <i class="bi bi-trash"></i> Remove Layer
+                    </button>
+                </div>
+
+                <!-- Button to toggle the sidebar collapse -->
+                <button type="button" class="btn btn-secondary mt-2" data-bs-toggle="collapse" data-bs-target="#dataAnalysisTools">
+                Data Analysis Tools <i class="bi bi-chevron-down"></i>
+                </button>
+                <!-- Collapsible content -->
+                <div class="collapse" id="dataAnalysisTools">
+                    <!-- Button to start drawing -->
+                    <button type="button" id="openSelectFeaturesModal" class="btn btn-success mb-2" data-bs-toggle="modal" data-bs-target="#layerSelectionModal">
+                        <i class="bi bi-pencil"></i> Select Features
+                    </button>
+                     <button type="button" id="clearSelection" class="btn btn-danger mb-2" style="display: none;">
+                            Clear Selection
+                        </button>
+                    
+                </div>
+
+                <!-- Button to toggle the sidebar collapse -->
+                <button type="button" class="btn btn-secondary mt-2" data-bs-toggle="collapse" data-bs-target="#stats">
+                    Statistics <i class="bi bi-chevron-down"></i>
+                </button>
+                <!-- Collapsible content -->
+                <div class="collapse" id="stats">
+                    <div class="card card-body">
+                        <h5 class="mb-3">Selected Features Statistics</h5>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p id="totalSelectedKM" class="text-dark">0 square kilometers</p>
+                            </div>
+                            <div class="col-md-6 text-dark" >
+                                <div class="chart-container">
+                                    <canvas id="doughnutChart" class="chart" width="200" height="200"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            
+            <!-- Map Column -->
+            <div class="col-md-9 col-sm-12 map-column">
+                <div id="viewDiv" style="height: 100%; width: 100%"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- File Upload Modal -->
+    <div class="modal fade" id="uploadModal" tabindex="-1" aria-labelledby="uploadModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="uploadModalLabel">Upload Shapefile</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- File Upload Form -->
+                    <form>
+                        <div class="mb-3">
+                            <label for="shapefileInput" class="form-label">Select a Shapefile:</label>
+                            <input type="file" class="form-control" id="shapefileInput">
+                        </div>
+                        <div class="mb-3">
+                            <progress id="progressBar" class="form-control" value="0" max="100"></progress>
+                            <p id="status" class="form-text"></p>
+                        </div>
+                        <div class="mb-3">
+                            <canvas id="doughnutChart" class="form-control" height="50"></canvas>
+                            <div id="doughnut-chart-legend" class="mt-2 text-center"></div>
+                        </div>
+                        <input id="upload-btn" class="btn btn-primary" value="upload">
+                    </form>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Remove layer modal -->
+    <div class="modal fade" id="removeLayerModal" tabindex="-1" aria-labelledby="removeLayerModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="removeLayerModalLabel">Select Layer to Remove</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="layerSelect" class="form-label">Select a Layer:</label>
+                            <select class="form-select" id="layerSelect"></select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-danger" id="removeLayer">Remove Layer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Layer Selection Modal -->
+    <div class="modal fade" id="layerSelectionModal" tabindex="-1" aria-labelledby="layerSelectionModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="layerSelectionModalLabel">Select a Layer</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="layerDropdown" class="form-label">Select a Layer:</label>
+                            <select class="form-select" id="layerDropdown">
+                                <!-- Add options dynamically using JavaScript -->
+                            </select>
+                        </div>
+                    </form>
+                    <form>
+                        <div class="form-check">
+                        <input class="form-check-input" type="radio" name="geometryType" value="point" checked>
+                        <label class="form-check-label">Point</label>
+                        </div>
+                        <div class="form-check">
+                        <input class="form-check-input" type="radio" name="geometryType" value="polygon">
+                        <label class="form-check-label">Polygon</label>
+                        </div>
+                        <div class="form-check">
+                        <input class="form-check-input" type="radio" name="geometryType" value="line">
+                        <label class="form-check-label">Line</label>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="startDrawing">Start Drawing</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Collapsible Basemap Gallery -->
+    <div class="collapse" id="basemapGallery"></div>
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        var dojoConfig = {
+            packages: [{
+                name: "esri",
+                location: "https://js.arcgis.com/4.27/esri"
+            }]
+        };
+    </script>
+    <script src="https://js.arcgis.com/4.27/init.js"></script>
+    <script src="static/src/esriRequires.js"></script>
+    <script src="static/src/map.js"></script>
+    <script src="static/src/mapControllers.js"></script>
+    <script src="static/src/loadLayer.js"></script>
+    <script src="static/src/uploadShapefile.js"></script>
+    <script src="static/src/draw.js"></script>
+    <script src="static/src/analysis.js"></script>
+    <script src="static/src/chart.js"></script>
+    <script src="static/src/removeLayer.js"></script>
+    <script src="static/src/selectFeatures.js"></script>
+    <script src="static/src/clearSelection.js"></script>
+    <script src="static/src/helpers.js"></script>
+</body>
+</html>

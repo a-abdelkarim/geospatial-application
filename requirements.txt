@@ -1,0 +1,8 @@
+Fiona
+Flask
+flask_restful
+dep/GDAL-3.4.3-cp38-cp38-win_amd64.whl
+geopandas
+pandas
+requests
+shapely

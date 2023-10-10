@@ -1,0 +1,111 @@
+ /* Custom CSS for responsiveness */
+ @media (max-width: 768px) {
+    /* Stack columns on small screens */
+    .stack-columns {
+        flex-direction: column;
+    }
+    /* Adjust sidebar width on small screens */
+    .side-menu {
+        width: 0%;
+    }
+    /* Center the map on small screens */
+    .map-column {
+        text-align: center;
+        width: 100%;
+    }
+}
+/* Custom CSS for side menu */
+.side-menu {
+    height: 100vh;
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    transition: width 0.5s;
+    overflow-x: hidden;
+}
+.side-menu a {
+    display: block;
+    color: white;
+    text-decoration: none;
+    margin-bottom: 10px;
+}
+.map-column {
+    max-width: 100%;
+    transition: margin-left 0.5s;
+}
+
+/* CSS for collapsible container */
+.collapsible-container {
+    margin-top: 10px;
+}
+
+.collapsible-btn {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+}
+
+.collapsible-content {
+    display: none;
+    padding: 10px;
+    background-color: #f1f1f1;
+}
+
+.collapsible-content.show {
+    display: block;
+}
+
+
+/* Custom sidebar styles */
+#sidebar {
+    background-color: #333;
+    color: #fff;
+    min-height: 100vh;
+    transition: all 0.3s;
+}
+
+#sidebar .logo {
+    text-align: center;
+    padding: 20px 0;
+}
+
+#sidebar .logo img {
+    max-width: 80px;
+}
+
+#sidebar .toolbox {
+    padding: 20px;
+}
+
+#sidebar .btn {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+#sidebar .btn:last-child {
+    margin-bottom: 0;
+}
+
+#sidebar .btn i {
+    margin-right: 10px;
+}
+
+#sidebar.collapsed {
+    width: 80px;
+}
+
+#sidebar.collapsed .toolbox {
+    display: none;
+}
+
+#sidebar.collapsed .btn i {
+    display: none;
+}
+
+.side-menu {
+    min-height: 100vh;
+}
