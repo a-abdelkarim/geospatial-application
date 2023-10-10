@@ -11,7 +11,7 @@ function initMapControllers() {
         view.ui.add(searchWidget, "top-right");
 
         const fullscreenWidget = new Fullscreen({ view });
-        view.ui.add(fullscreenWidget, "top-left");
+        view.ui.add(fullscreenWidget, "bottom-left");
 
         const basemapGalleryContainer = generateWidgetContainer("#basemapGallery", "Basemap");
         const basemapGallery = new BasemapGallery({
@@ -34,7 +34,7 @@ function initMapControllers() {
         });
         view.ui.add(layerListContainer.containerButton, "top-left");
         view.ui.add(layerListContainer.widgetContainer, "top-left");
-        
+
         const mapLegendContainer = generateWidgetContainer("#mapLegend", "Legend");
         const legend = new Legend({ 
             view: view,
