@@ -63,5 +63,5 @@ Before you can run this project, make sure you have the following requirements i
 
 ### Sample Data
 
-**Sample** data is included in the `data` directory. You can use this data to test the project's functionality.
+- **Sample** data is included in the `data` directory. You can use this data to test the project's functionality.
 
