@@ -60,3 +60,8 @@ Before you can run this project, make sure you have the following requirements i
 - Statistics
   - View a chart that displays the count of selected and unselected features.
 
+
+### Sample Data
+
+**Sample** data is included in the `data` directory. You can use this data to test the project's functionality.
+
